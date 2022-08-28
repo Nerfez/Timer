@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer</title>
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700">
+    
+</head>
+
+<body> 
+<div id="buttons">
+    <button id="button__play"></button>
+	<button id="button__resume"></button>
+	<button id="button__refresh"></button>
+  </div>
+  
+  <h1 id="counter">30:00</h1>
+  <div id="decrements">
+    <button id="button__decrease5">-5 s</button>
+	<button id="button__decrease10">-10</button>
+	<button id="button__decrease15">-15</button>
+	</div>
+	<div id="increments">
+	<button id="button__increase5">+5 s</button>
+	<button id="button__increase10">+10</button>
+	<button id="button__increase15">+15</button>
+	</div>
+	
+</body>
+
+<script>
+let decreaseBtn5 = document.getElementById("button__decrease5");
+let decreaseBtn10 = document.getElementById("button__decrease10");
+let decreaseBtn15 = document.getElementById("button__decrease15");
+let increaseBtn5 = document.getElementById("button__increase5");
+let increaseBtn10 = document.getElementById("button__increase10");
+let increaseBtn15 = document.getElementById("button__increase15");
+let refreshBtn = document.getElementById("button__refresh");
+let resumeBtn = document.getElementById("button__resume");
+let playBtn = document.getElementById("button__play");
+let counter = document.getElementById("counter");
+const departMinutes = 30;
+let temps = departMinutes * 60;
+let count = 0;
+
+function start(){
+ var self = this;
+this.interval = setInterval(() => {
+  let minutes = parseInt(temps / 60, 10)
+  let secondes = parseInt(temps % 60, 10)
+  
+  minutes = minutes < 10 ? "0" + minutes : minutes
+  secondes = secondes < 10 ? "0" + secondes : secondes
+	counterStyle();
+  counter.innerText = `${minutes}:${secondes}`
+  temps = temps <= 0 ? 0 : temps - 1
+}, 1000)
+}
+refreshBtn.addEventListener("click", () => {
+  temps = departMinutes * 60;
+  clearInterval(this.interval);
+   delete this.interval;
+   if (!this.interval) this.start();
+});
+
+playBtn.addEventListener("click", () => {
+  if (!this.interval) this.start();
+});
+
+resumeBtn.addEventListener("click", () => {
+  clearInterval(this.interval);
+   delete this.interval;
+});
+
+decreaseBtn5.addEventListener("click", () => {
+  count=-5;
+  temps = temps + count;
+});
+
+decreaseBtn10.addEventListener("click", () => {
+  count=-10;
+  temps = temps + count;
+});
+
+decreaseBtn15.addEventListener("click", () => {
+  count=-15;
+  temps = temps + count;
+});
+
+increaseBtn5.addEventListener("click", () => {
+  count=+5;
+  temps = temps + count;
+});
+
+increaseBtn10.addEventListener("click", () => {
+  count=+10;
+  temps = temps + count;
+});
+
+increaseBtn15.addEventListener("click", () => {
+  count=+15;
+  temps = temps + count;
+});
+
+function counterStyle() {
+  if (temps < 600) {
+	counter.classList.remove("positive");
+    counter.classList.add("negative");
+  } else if (temps > 600) {
+	counter.classList.remove("negative");
+    counter.classList.add("positive");
+  }
+}
+
+</script>
+
+<style>
+:root {
+  /*   color variables */
+  --clr-negative: #ff1744;
+  --clr-positive: #2abf77;
+  --clr-gray100: #f0f7f8;
+  --clr-gray200: #cfd8dc;
+  --clr-gray300: #a7b7be;
+  --clr-gray400: #6b7e86;
+  --clr-gray500: #425a65;
+
+  /*   border radius */
+  --radius: 0.2rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 100vh;
+  background-image: url(img/BACKGROUND.png);
+  color: white;
+}
+
+#counter {
+  font-size: 6rem;
+}
+
+#button__decrease5 {
+    border: none;
+	margin-right: 60px;
+    background-color: rgba(178,38,38);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+
+#decrements:active {
+transform: scale(0.9);
+}
+
+#increments:active {
+transform: scale(0.9);
+}
+
+#buttons:active {
+transform: scale(0.9);
+}
+
+#button__decrease10 {
+    border: none;
+	margin-right: 60px;
+    background-color: rgba(178,38,38);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__decrease15 {
+    border: none;
+    background-color: rgba(178,38,38);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__increase5 {
+    border: none;
+	margin-right: 60px;
+    background-color: rgba(110,185,104);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__increase10 {
+    border: none;
+	margin-right: 60px;
+	margin-top: 40px;
+    background-color: rgba(110,185,104);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__increase15 {
+    border: none;
+    background-color: rgba(110,185,104);
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__play {
+    border: none;
+	margin-right: 40px;
+    background-color: white;
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+	background-image: url(img/Play.png);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4.3rem;
+    width: 4.6rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__resume {
+    border: none;
+	margin-right: 40px;
+    background-color: white;
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+	background-image: url(img/Pause.png);
+    border-radius: 50%;
+    height: 4.3rem;
+    width: 4.6rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+#button__refresh {
+    border: none;
+    background-color: white;
+    box-shadow: 0px 0px 10px var(--clr-gray200);
+	background-image: url(img/Replay.png);
+    font-weight: bold;
+    font-size: 2rem;
+    color: inherit;
+    border-radius: 50%;
+    height: 4.3rem;
+    width: 4.6rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 250ms ease-in-out, transform 50ms ease-in-out;
+}
+
+.negative {
+  color: var(--clr-negative);
+  animation: pulse 500ms ease-in-out;
+}
+
+.positive {
+  color: var(--clr-positive);
+  animation: pulse 500ms ease-in-out;
+}
+
+
+<style>
